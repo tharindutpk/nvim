@@ -277,43 +277,27 @@ require('lazy').setup({
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
-
--- Set highlight on search
-vim.o.hlsearch = false
-
--- Make line numbers default
-vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
-vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
+vim.g.loaded_netrw = 1                 -- Disable netrw because we are using nvim-tree
+vim.g.loaded_netrwPlugin = 1
+vim.o.hlsearch = false                 -- Set highlight on search
+vim.wo.number = true                   -- Make line numbers default
+vim.o.mouse = 'a'                      -- Enable mouse mode
+vim.o.clipboard = 'unnamedplus'        -- Sync clipboard between OS and Neovim.
+vim.o.breakindent = true               -- Enable break indent
+vim.o.undofile = true                  -- Save undo history
+vim.o.ignorecase = true                -- Case-insensitive searching UNLESS \C or capital in search
+vim.o.smartcase = true                 -- If you include mixed case in your search
+vim.wo.signcolumn = 'yes'              -- Keep signcolumn on by default
+vim.o.updatetime = 250                 -- Decrease update time
+vim.o.timeout = true                   -- Nvim will wait for any key that can follow in a mapping
+vim.o.timeoutlen = 300                 -- Time in milliseconds to wait for a mapped sequence to complete
+vim.o.completeopt = 'menuone,noselect' -- Set completeopt to have a better completion experience
+vim.o.termguicolors = true             -- NOTE: You should make sure your terminal supports this
+vim.o.confirm = true                   -- Confirm before pressing :q with unsaved changes
+vim.o.expandtab = true                 -- Expand tab to spaces
+vim.o.relativenumber = true            -- Show relative line numbers
+vim.o.shiftwidth = 2                   -- 2 spaces for indent width
+vim.o.tabstop = 2                      -- Set tab stops
 
 -- [[ Basic Keymaps ]]
 vim.keymap.set('i', 'jk', '<ESC>')
