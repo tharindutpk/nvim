@@ -11,10 +11,16 @@ return {
     { '<leader>er', ':NvimTreeFindFile<CR>', desc = '[E]xplorer [R]eveal' },
   },
   opts = {
+    hijack_cursor = true,
+    disable_netrw = true,
     sort_by = 'case_sensitive',
     renderer = {
       group_empty = true,
       highlight_git = true,
+      icons = {
+        git_placement = 'after',
+        modified_placement = 'after',
+      },
     },
     filters = {
       dotfiles = true,
