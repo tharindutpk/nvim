@@ -15,6 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   spec = {
     { import = 'plugins' },
-    -- { import = 'lang.go', enabled = true },
+    { import = 'plugins.lang.go', enabled = true },
+    { import = 'plugins.lang.rust', enabled = true },
+    { import = 'plugins.lang.python', enabled = true },
+    { import = 'plugins.lang.cpp', enabled = true },
   },
 })
