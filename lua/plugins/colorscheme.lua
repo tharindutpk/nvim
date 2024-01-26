@@ -1,10 +1,46 @@
 return {
   {
-    'folke/tokyonight.nvim',
+    'catppuccin/nvim',
+    name = 'catppuccin',
     lazy = false,
-    priority = 1000,
     config = function()
-      vim.cmd([[colorscheme tokyonight-storm]])
+      require('catppuccin').setup({
+        flavour = 'mocha', -- latte, frappe, macchiato, mocha
+        dim_inactive = {
+          enabled = false, -- dims the background color of inactive window
+          shade = 'dark',
+          percentage = 0.15, -- percentage of the shade to apply to the inactive window
+        },
+        no_italic = false, -- Force no italic
+        no_bold = true, -- Force no bold
+        no_underline = false, -- Force no no_underline
+        styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { 'italic' }, -- Change the style of comments
+          conditionals = { 'italic' },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
+        },
+        color_overrides = {},
+        custom_highlights = {},
+        integrations = {
+          alpha = true,
+          cmp = true,
+          gitsigns = true,
+          neotree = true,
+          mason = true,
+          lsp_saga = true,
+        },
+        compile_path = vim.fn.stdpath('cache') .. '/catppuccin',
+      })
+      vim.cmd.colorscheme('catppuccin')
     end,
   },
 }
