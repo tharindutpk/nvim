@@ -34,7 +34,7 @@ return {
           alpha = true,
           cmp = true,
           gitsigns = true,
-          neotree = true,
+          nvimtree = true,
           mason = true,
           lsp_saga = true,
         },
