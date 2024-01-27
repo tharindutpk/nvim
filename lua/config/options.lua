@@ -24,4 +24,3 @@ vim.o.expandtab = true -- Expand tab to spaces
 vim.o.relativenumber = true -- Show relative line numbers
 vim.o.shiftwidth = 2 -- 2 spaces for indent width
 vim.o.tabstop = 2 -- Set tab stops
-print('From options')
