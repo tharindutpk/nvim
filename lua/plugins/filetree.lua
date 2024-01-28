@@ -21,5 +21,10 @@ return {
         modified_placement = 'after',
       },
     },
+    actions = {
+      open_file = {
+        quit_on_open = true,
+      },
+    },
   },
 }
