@@ -15,4 +15,13 @@ return {
       },
     },
   },
+
+  {
+    'rmagatti/alternate-toggler',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    keys = {
+      { '<leader>tv', ':ToggleAlternate<CR>', desc = '[T]oggle [V]alue' },
+    },
+    opts = {},
+  },
 }
