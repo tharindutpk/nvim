@@ -34,9 +34,22 @@ return {
           alpha = true,
           cmp = true,
           gitsigns = true,
+          fidget = false,
           nvimtree = true,
           mason = true,
           lsp_saga = true,
+          native_lsp = {
+            enabled = true,
+            underlines = {
+              errors = { 'undercurl' },
+              hints = { 'undercurl' },
+              warnings = { 'undercurl' },
+              information = { 'undercurl' },
+            },
+            inlay_hints = {
+              background = false,
+            },
+          },
         },
         compile_path = vim.fn.stdpath('cache') .. '/catppuccin',
       })
