@@ -8,6 +8,7 @@ return {
 
     -- Snippet Engine & its associated nvim-cmp source
     'L3MON4D3/LuaSnip',
+    'rafamadriz/friendly-snippets',
     'saadparwaiz1/cmp_luasnip',
 
     'onsails/lspkind.nvim',
