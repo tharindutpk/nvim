@@ -2,7 +2,6 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
-    -- TODO remove lazy part once this is a dependent of lsp-config
     opts = {
       ensure_installed = {
         'stylua',
@@ -37,8 +36,12 @@ return {
       'j-hui/fidget.nvim',
       'folke/neodev.nvim',
     },
-    opts = {},
-    config = function()
+    opts = {
+      servers = {
+        lua_ls = {},
+      },
+    },
+    config = function(_, opts)
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
@@ -78,44 +81,15 @@ return {
         end, { desc = 'Format current buffer with LSP' })
       end
 
-      local servers = {
-        clangd = {},
-        gopls = {
-          gopls = {
-            gofumpt = true,
-            usePlaceholders = true,
-            semanticTokens = true,
-          },
-        },
-        pyright = {},
-        rust_analyzer = {},
-        tsserver = {},
-        html = { filetypes = { 'html', 'twig', 'hbs' } },
-
-        lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
-          },
-        },
-      }
-
-      -- require('fidget').setup()
+      require('fidget').setup({})
+      require('neodev').setup({})
       require('mason-lspconfig').setup({
-
-        ensure_installed = vim.tbl_keys(servers),
+        ensure_installed = vim.tbl_keys(opts.servers),
         handlers = {
           function(server_name)
             require('lspconfig')[server_name].setup({
               capabilities = capabilities,
               on_attach = on_attach,
-              settings = servers[server_name],
-              filetypes = (servers[server_name] or {}).filetypes,
             })
           end,
         },
