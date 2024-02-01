@@ -38,7 +38,17 @@ return {
     },
     opts = {
       servers = {
-        lua_ls = {},
+        lua_ls = {
+          Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            diagnostics = {
+              globals = { 'vim' },
+            },
+            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            -- diagnostics = { disable = { 'missing-fields' } },
+          },
+        },
       },
     },
     config = function(_, opts)
@@ -90,6 +100,8 @@ return {
             require('lspconfig')[server_name].setup({
               capabilities = capabilities,
               on_attach = on_attach,
+              settings = opts.servers[server_name],
+              filetypes = (opts.servers[server_name] or {}).filetypes,
             })
           end,
         },
