@@ -19,6 +19,7 @@ require('lazy').setup({
     { import = 'plugins.lang.rust', enabled = true },
     { import = 'plugins.lang.python', enabled = true },
     { import = 'plugins.lang.cpp', enabled = true },
+    { import = 'plugins.lang.typescript', enabled = true },
   },
   change_detection = {
     enabled = false,
