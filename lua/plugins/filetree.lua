@@ -15,15 +15,24 @@ return {
     disable_netrw = true,
     renderer = {
       group_empty = true,
+      special_files = { 'Cargo.toml', 'Makefile', 'package.json', 'package-lock.json', 'README.md', 'readme.md' },
       highlight_git = true,
       icons = {
         git_placement = 'after',
-        modified_placement = 'after',
+        diagnostics_placement = 'signcolumn',
       },
+    },
+    diagnostics = {
+      enable = true,
+      show_on_dirs = true,
+    },
+    filters = {
+      git_ignored = false,
+      custom = { 'node_modules', '.git', '.idea' },
     },
     actions = {
       open_file = {
-        quit_on_open = true,
+        quit_on_open = false,
       },
     },
   },
