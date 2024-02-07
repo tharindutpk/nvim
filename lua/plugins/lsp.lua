@@ -2,6 +2,8 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
+    keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },
+    build = ':MasonUpdate',
     opts = {
       ensure_installed = {
         'stylua',
@@ -33,8 +35,8 @@ return {
     dependencies = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      'j-hui/fidget.nvim',
-      'folke/neodev.nvim',
+      { 'j-hui/fidget.nvim', opts = {} },
+      { 'folke/neodev.nvim', opts = {} },
     },
     opts = {
       servers = {
@@ -45,8 +47,6 @@ return {
             diagnostics = {
               globals = { 'vim' },
             },
-            -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
           },
         },
       },
@@ -91,8 +91,6 @@ return {
         end, { desc = 'Format current buffer with LSP' })
       end
 
-      require('fidget').setup({})
-      require('neodev').setup({})
       require('mason-lspconfig').setup({
         ensure_installed = vim.tbl_keys(opts.servers),
         handlers = {
