@@ -28,18 +28,12 @@ return {
   },
 
   {
-    'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        -- ['handlebars'] = { 'prettierd' },
-        ['html'] = { 'prettierd' },
-        -- ['javascript'] = { 'prettierd' },
-        -- ['javascriptreact'] = { 'prettierd' },
-        -- ['json'] = { 'prettierd' },
-        -- ['jsonc'] = { 'prettierd' },
-        -- ['typescript'] = { 'prettierd' },
-        -- ['typescriptreact'] = { 'prettierd' },
-      },
-    },
+    'nvimtools/none-ls.nvim',
+    opts = function(_, opts)
+      local null_ls = require('null-ls')
+      opts.sources = vim.list_extend(opts.sources or {}, {
+        null_ls.builtins.formatting.prettierd,
+      })
+    end,
   },
 }

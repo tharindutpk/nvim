@@ -7,7 +7,7 @@ return {
     'nvim-tree/nvim-web-devicons',
   },
   keys = {
-    { '<leader>e', ':NvimTreeToggle<CR>', desc = '[E]xplorer' },
+    { '<leader>e',  ':NvimTreeToggle<CR>',   desc = '[E]xplorer' },
     { '<leader>er', ':NvimTreeFindFile<CR>', desc = '[E]xplorer [R]eveal' },
   },
   opts = {
@@ -32,7 +32,7 @@ return {
     },
     actions = {
       open_file = {
-        quit_on_open = false,
+        quit_on_open = true,
       },
     },
   },
