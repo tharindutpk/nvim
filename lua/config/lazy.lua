@@ -15,10 +15,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   spec = {
     { import = 'plugins' },
-    { import = 'plugins.lang.go', enabled = true },
-    { import = 'plugins.lang.rust', enabled = true },
-    { import = 'plugins.lang.python', enabled = true },
-    { import = 'plugins.lang.cpp', enabled = true },
+    { import = 'plugins.lang.go',         enabled = true },
+    { import = 'plugins.lang.rust',       enabled = true },
+    { import = 'plugins.lang.python',     enabled = true },
+    { import = 'plugins.lang.cpp',        enabled = true },
     { import = 'plugins.lang.typescript', enabled = true },
   },
   change_detection = {
