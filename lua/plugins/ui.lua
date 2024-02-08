@@ -48,7 +48,8 @@ return {
         callback = function()
           local stats = require('lazy').stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          dashboard.section.footer.val = '⚡ Neovim loaded ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms'
+          dashboard.section.footer.val = '⚡ Neovim loaded ' ..
+          stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms'
           pcall(vim.cmd.AlphaRedraw)
         end,
       })
@@ -62,10 +63,17 @@ return {
     opts = {
       options = {
         theme = 'catppuccin',
-        component_separators = ' ',
-        section_separators = '',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = { 'alpha' },
       },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { { 'branch' } },
+        lualine_c = { { 'filename', file_status = true, path = 1 } },
+        lualine_x = { 'diff', 'diagnostics', 'encoding', 'fileformat', 'filetype' },
+      },
+      extensions = { 'nvim-tree', 'lazy', 'mason', 'toggleterm' },
     },
   },
 }
