@@ -26,4 +26,20 @@ return {
       },
     },
   },
+
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        ['handlebars'] = { 'prettierd' },
+        ['html'] = { 'prettierd' },
+        ['javascript'] = { 'prettierd' },
+        ['javascriptreact'] = { 'prettierd' },
+        ['json'] = { 'prettierd' },
+        ['jsonc'] = { 'prettierd' },
+        ['typescript'] = { 'prettierd' },
+        ['typescriptreact'] = { 'prettierd' },
+      },
+    },
+  },
 }
