@@ -13,20 +13,22 @@ return {
     opts = {
       servers = {
         rust_analyzer = {
-          ['rust-analyzer'] = {
-            diagnostics = {
-              enable = false,
-            },
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              runBuildScripts = true,
-            },
-            -- Add clippy lints for Rust.
-            checkOnSave = {
-              allFeatures = true,
-              command = 'clippy',
-              extraArgs = { '--no-deps' },
+          settings = {
+            ['rust-analyzer'] = {
+              diagnostics = {
+                enable = false,
+              },
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                runBuildScripts = true,
+              },
+              -- Add clippy lints for Rust.
+              checkOnSave = {
+                allFeatures = true,
+                command = 'clippy',
+                extraArgs = { '--no-deps' },
+              },
             },
           },
         },
@@ -47,7 +49,7 @@ return {
         },
       },
     },
-    opts = function(_, opts)
+    opts = function()
       local cmp = require('cmp')
       vim.api.nvim_create_autocmd('BufRead', {
         group = vim.api.nvim_create_augroup('CmpSourceCargo', { clear = true }),
