@@ -29,11 +29,3 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
-
--- Switch for controlling whether you want autoformatting.
--- Use :FormatToggle to toggle autoformatting on or off
-local format_is_enabled = true
-vim.api.nvim_create_user_command('FormatToggle', function()
-  format_is_enabled = not format_is_enabled
-  print('Setting autoformatting to: ' .. tostring(format_is_enabled))
-end, {})
