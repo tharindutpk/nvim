@@ -3,7 +3,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     opts = function(_, opts)
       if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'go', 'gomod', 'gowork', 'gosum' })
+        vim.list_extend(opts.ensure_installed, { 'go', 'gomod', 'gowork', 'gosum', 'templ' })
       end
     end,
   },
@@ -48,6 +48,7 @@ return {
             },
           },
         },
+        templ = {},
       },
     },
   },
@@ -59,5 +60,11 @@ return {
         ['go'] = { 'goimports-reviser', 'golines', 'gofumpt' },
       },
     },
+  },
+
+  {
+    'joerdav/templ.vim',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    config = function() end,
   },
 }
