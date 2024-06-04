@@ -1,11 +1,5 @@
 return {
   {
-    'numToStr/Comment.nvim',
-    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
-    opts = {},
-  },
-
-  {
     'folke/trouble.nvim',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
