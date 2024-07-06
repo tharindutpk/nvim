@@ -11,7 +11,7 @@ return {
   {
     'williamboman/mason.nvim',
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { 'goimports-reviser', 'gofumpt', 'golines' })
+      vim.list_extend(opts.ensure_installed, { 'goimports', 'goimports-reviser', 'gofumpt', 'golines' })
     end,
   },
 
