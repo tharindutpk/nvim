@@ -17,6 +17,7 @@ return {
     require('telescope').setup({
       defaults = {
         initial_mode = 'normal',
+        winblend = 10,
         mappings = {
           i = {
             ['<esc>'] = actions.close,
@@ -40,7 +41,6 @@ return {
     -- Slightly advanced example of overriding default behavior and theme
     vim.keymap.set('n', '<leader>/', function()
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
-        winblend = 10,
         previewer = false,
       }))
     end, { desc = '[/] Fuzzily search in current buffer' })
