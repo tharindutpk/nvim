@@ -1,3 +1,31 @@
+local kind_icons = {
+  Text = '',
+  Method = '󰆧',
+  Function = '󰊕',
+  Constructor = '',
+  Field = '󰇽',
+  Variable = '󰂡',
+  Class = '󰠱',
+  Interface = '',
+  Module = '',
+  Property = '󰜢',
+  Unit = '',
+  Value = '󰎠',
+  Enum = '',
+  Keyword = '󰌋',
+  Snippet = '',
+  Color = '󰏘',
+  File = '󰈙',
+  Reference = '',
+  Folder = '󰉋',
+  EnumMember = '',
+  Constant = '󰏿',
+  Struct = '',
+  Event = '',
+  Operator = '󰆕',
+  TypeParameter = '󰅲',
+}
+
 return {
   'hrsh7th/nvim-cmp',
   event = { 'InsertEnter' },
@@ -10,14 +38,11 @@ return {
     'L3MON4D3/LuaSnip',
     'rafamadriz/friendly-snippets',
     'saadparwaiz1/cmp_luasnip',
-
-    'onsails/lspkind.nvim',
   },
   opts = {},
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
-    local lspkind = require('lspkind')
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup({})
     require('cmp').setup({
@@ -62,16 +87,21 @@ return {
         { name = 'path' },
       },
       formatting = {
-        format = lspkind.cmp_format({
-          mode = 'symbol_text',
-          menu = {
+        fields = { 'abbr', 'kind', 'menu' },
+        expandable_indicator = true,
+        format = function(entry, vim_item)
+          -- Kind icons
+          vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+          -- Source
+          vim_item.menu = ({
             buffer = '[Buffer]',
             nvim_lsp = '[LSP]',
             luasnip = '[LuaSnip]',
             nvim_lua = '[Lua]',
-            latex_symbols = '[Latex]',
-          },
-        }),
+            latex_symbols = '[LaTeX]',
+          })[entry.source.name]
+          return vim_item
+        end,
       },
     })
   end,
