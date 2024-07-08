@@ -29,51 +29,84 @@ return {
         'yaml',
       },
       auto_install = true,
-      highlight = { enable = true },
+      highlight = {
+        enable = true,
+        -- Disable slow treesitter highlight for large files
+        disable = function(_, buf)
+          local max_filesize = 100 * 1024 -- 100 KB
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > max_filesize then
+            return true
+          end
+        end,
+        additional_vim_regex_highlighting = false,
+      },
       indent = { enable = true },
       autotag = { enable = true },
       textobjects = {
         select = {
           enable = true,
-          lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+          lookahead = true,
           keymaps = {
-            -- You can use the capture groups defined in textobjects.scm
-            ['aa'] = '@parameter.outer',
-            ['ia'] = '@parameter.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
+            ['aso'] = '@assignment.outer',
+            ['asi'] = '@assignment.inner',
+            ['asl'] = '@assignment.lhs',
+            ['asr'] = '@assignment.rhs',
+            ['pro'] = '@parameter.outer',
+            ['pri'] = '@parameter.inner',
+            ['fno'] = '@function.outer',
+            ['fni'] = '@function.inner',
+            ['clo'] = '@class.outer',
+            ['cli'] = '@class.inner',
+            ['cdo'] = '@conditional.outer',
+            ['cdi'] = '@conditional.inner',
+            ['lpo'] = '@loop.outer',
+            ['lpi'] = '@loop.inner',
+            ['fco'] = '@call.outer',
+            ['fci'] = '@call.inner',
           },
         },
         move = {
           enable = true,
-          set_jumps = true, -- whether to set jumps in the jumplist
+          set_jumps = true,
           goto_next_start = {
+            [']f'] = '@call.outer',
             [']m'] = '@function.outer',
-            [']]'] = '@class.outer',
-            [']o'] = '@loop.*',
+            [']c'] = '@class.outer',
+            [']i'] = '@conditional.outer',
+            [']l'] = '@loop.outer',
           },
           goto_next_end = {
+            [']F'] = '@call.outer',
             [']M'] = '@function.outer',
-            [']['] = '@class.outer',
+            [']C'] = '@class.outer',
+            [']I'] = '@conditional.outer',
+            [']L'] = '@loop.outer',
           },
           goto_previous_start = {
+            ['[f'] = '@call.outer',
             ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
+            ['[c'] = '@class.outer',
+            ['[i'] = '@conditional.outer',
+            ['[l'] = '@loop.outer',
           },
           goto_previous_end = {
+            ['[F'] = '@call.outer',
             ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
+            ['[C'] = '@class.outer',
+            ['[I'] = '@conditional.outer',
+            ['[L'] = '@loop.outer',
           },
         },
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>a'] = '@parameter.inner',
+            ['<leader>pi'] = '@parameter.inner',
+            ['<leader>fo'] = '@function.outer',
           },
           swap_previous = {
-            ['<leader>A'] = '@parameter.inner',
+            ['<leader>ip'] = '@parameter.inner',
+            ['<leader>of'] = '@function.outer',
           },
         },
       },
