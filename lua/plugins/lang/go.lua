@@ -22,6 +22,11 @@ return {
         gopls = {
           settings = {
             gopls = {
+              gofumpt = true,
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              semanticTokens = true,
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
@@ -40,11 +45,6 @@ return {
                 useany = true,
                 shadow = true,
               },
-              gofumpt = true,
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              semanticTokens = true,
             },
           },
         },

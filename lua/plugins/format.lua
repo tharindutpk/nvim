@@ -16,6 +16,7 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
+        sh = { 'shfmt' },
       },
       format_on_save = function(bufnr)
         -- Disable with a global or buffer-local variable
