@@ -18,6 +18,8 @@ return {
               -- Float highlights
               Pmenu = { bg = mocha.mantle },
               PmenuSel = { bg = mocha.crust },
+              PmenuSbar = { bg = mocha.mantle },
+              PmenuThumb = { bg = mocha.crust },
 
               -- Telescope highlights
               TelescopeBorder = { fg = mocha.green },
