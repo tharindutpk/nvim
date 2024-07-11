@@ -16,6 +16,12 @@ return {
     local actions = require('telescope.actions')
     require('telescope').setup({
       defaults = {
+        layout_strategy = 'flex',
+        layout_config = {
+          horizontal = { preview_cutoff = 80, preview_width = 0.55 },
+          width = 0.80,
+          height = 0.80,
+        },
         initial_mode = 'normal',
         winblend = 10,
         mappings = {

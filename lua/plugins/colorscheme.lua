@@ -5,12 +5,20 @@ return {
     lazy = false,
     config = function()
       require('catppuccin').setup({
-        flavour = 'mocha', -- latte, frappe, macchiato, mocha
-        color_overrides = {},
+        favour = 'mocha', -- latte, frappe, macchiato, mocha
+        no_italic = true, -- Force no italic
+        no_bold = true, -- Force no bold
+        color_overrides = {
+          mocha = {},
+        },
         custom_highlights = {},
         highlight_overrides = {
           mocha = function(mocha)
             return {
+              -- Float highlights
+              Pmenu = { bg = mocha.mantle },
+              PmenuSel = { bg = mocha.crust },
+
               -- Telescope highlights
               TelescopeBorder = { fg = mocha.green },
               TelescopeSelectionCaret = { fg = mocha.flamingo },
@@ -26,6 +34,14 @@ return {
               TelescopePromptTitle = { fg = mocha.text, bg = mocha.none },
               TelescopeResultsTitle = { fg = mocha.text, bg = mocha.none },
               TelescopePreviewTitle = { fg = mocha.text, bg = mocha.none },
+
+              -- Treesitter highlights
+              TreesitterContextBottom = { bg = mocha.crust, style = { 'bold' } },
+
+              -- CMP highlights
+              CmpItemAbbr = { fg = mocha.text },
+              CmpItemMenu = { fg = mocha.surface1 },
+              CmpItemAbbrMatch = { fg = mocha.sapphire },
             }
           end,
         },

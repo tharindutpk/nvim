@@ -50,6 +50,10 @@ return {
       },
       { 'folke/neodev.nvim', opts = {} },
     },
+    keys = {
+      { '<leader>li', '<CMD>LspInfo<CR>', desc = 'Lsp Info' },
+      { '<leader>lr', '<CMD>LspRestart<CR>', desc = 'Lsp Restart' },
+    },
     opts = {
       servers = {
         lua_ls = {
