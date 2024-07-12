@@ -10,6 +10,9 @@ return {
       ensure_installed = {
         'stylua',
         'shfmt',
+        'goimports',
+        'gofumpt',
+        'golines',
       },
     },
     config = function(_, opts)
@@ -56,6 +59,35 @@ return {
     },
     opts = {
       servers = {
+        gopls = {
+          settings = {
+            gopls = {
+              gofumpt = true,
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              semanticTokens = true,
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                fieldalignment = true,
+                nilness = true,
+                unusedparams = true,
+                unusedvariable = true,
+                unusedwrite = true,
+                useany = true,
+                shadow = true,
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -74,6 +106,7 @@ return {
             },
           },
         },
+        templ = {},
       },
     },
     config = function(_, opts)
@@ -184,5 +217,11 @@ return {
         show_file = false,
       },
     },
+  },
+
+  {
+    'joerdav/templ.vim',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    config = function() end,
   },
 }
