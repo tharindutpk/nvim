@@ -1,40 +1,4 @@
 return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == 'table' then
-        vim.list_extend(opts.ensure_installed, { 'rust', 'toml' })
-      end
-    end,
-  },
-
-  {
-    'neovim/nvim-lspconfig',
-    opts = {
-      servers = {
-        rust_analyzer = {
-          settings = {
-            ['rust-analyzer'] = {
-              diagnostics = {
-                enable = false,
-              },
-              cargo = {
-                allFeatures = true,
-                loadOutDirsFromCheck = true,
-                runBuildScripts = true,
-              },
-              -- Add clippy lints for Rust.
-              checkOnSave = {
-                allFeatures = true,
-                command = 'clippy',
-                extraArgs = { '--no-deps' },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
 
   {
     'hrsh7th/nvim-cmp',

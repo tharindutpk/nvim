@@ -3,7 +3,10 @@ return {
     'mfussenegger/nvim-lint',
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     opts = {
-      linters_by_ft = {},
+      linters_by_ft = {
+        javascript = { 'eslint_d' },
+        javascriptreact = { 'eslint_d' },
+      },
     },
     config = function(_, opts)
       local lint = require('lint')

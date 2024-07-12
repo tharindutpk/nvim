@@ -18,6 +18,17 @@ return {
         go = { 'goimports', 'golines', 'gofumpt' },
         lua = { 'stylua' },
         sh = { 'shfmt' },
+        css = { 'prettierd' },
+        scss = { 'prettierd' },
+        handlebars = { 'prettierd' },
+        html = { 'prettierd' },
+        javascript = { 'prettierd' },
+        javascriptreact = { 'prettierd' },
+        json = { 'prettierd' },
+        jsonc = { 'prettierd' },
+        typescript = { 'prettierd' },
+        typescriptreact = { 'prettierd' },
+        svelte = { 'prettierd' },
       },
       format_on_save = function(bufnr)
         -- Disable with a global or buffer-local variable

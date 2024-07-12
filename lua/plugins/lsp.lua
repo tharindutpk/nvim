@@ -13,6 +13,7 @@ return {
         'goimports',
         'gofumpt',
         'golines',
+        'prettierd',
       },
     },
     config = function(_, opts)
@@ -59,6 +60,27 @@ return {
     },
     opts = {
       servers = {
+        emmet_ls = {
+          filetypes = {
+            'css',
+            'html',
+            'javascript',
+            'javascriptreact',
+            'less',
+            'sass',
+            'scss',
+            'svelte',
+            'templ',
+            'typescriptreact',
+          },
+          init_options = {
+            html = {
+              options = {
+                ['bem.enabled'] = true,
+              },
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -107,6 +129,55 @@ return {
           },
         },
         templ = {},
+        cssls = {},
+        svelte = {
+          settings = {
+            typescript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              inlayHints = {
+                parameterNames = { enabled = 'all' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+            },
+            javascript = {
+              updateImportsOnFileMove = { enabled = 'always' },
+              inlayHints = {
+                parameterNames = { enabled = 'literals' },
+                parameterTypes = { enabled = true },
+                variableTypes = { enabled = true },
+                propertyDeclarationTypes = { enabled = true },
+                functionLikeReturnTypes = { enabled = true },
+                enumMemberValues = { enabled = true },
+              },
+            },
+          },
+        },
+        tailwindcss = {},
+        -- tsserver = {},
+        rust_analyzer = {
+          settings = {
+            ['rust-analyzer'] = {
+              diagnostics = {
+                enable = false,
+              },
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                runBuildScripts = true,
+              },
+              -- Add clippy lints for Rust.
+              checkOnSave = {
+                allFeatures = true,
+                command = 'clippy',
+                extraArgs = { '--no-deps' },
+              },
+            },
+          },
+        },
       },
     },
     config = function(_, opts)

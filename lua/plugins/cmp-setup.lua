@@ -38,6 +38,15 @@ return {
     'L3MON4D3/LuaSnip',
     'rafamadriz/friendly-snippets',
     'saadparwaiz1/cmp_luasnip',
+    {
+      'Saecki/crates.nvim',
+      event = { 'BufRead Cargo.toml' },
+      opts = {
+        src = {
+          cmp = { enabled = true },
+        },
+      },
+    },
   },
   opts = {},
   config = function()
@@ -103,6 +112,13 @@ return {
           return vim_item
         end,
       },
+    })
+    vim.api.nvim_create_autocmd('BufRead', {
+      group = vim.api.nvim_create_augroup('CmpSourceCargo', { clear = true }),
+      pattern = 'Cargo.toml',
+      callback = function()
+        cmp.setup.buffer({ sources = { { name = 'crates' } } })
+      end,
     })
   end,
 }
