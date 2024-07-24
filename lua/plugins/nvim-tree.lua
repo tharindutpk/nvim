@@ -8,7 +8,9 @@ return {
   },
   keys = {
     { '<leader>ee', ':NvimTreeToggle<CR>', desc = '[E]xplorer' },
-    { '<leader>er', ':NvimTreeFindFile<CR>', desc = '[E]xplorer [R]eveal' },
+    { '<leader>ef', ':NvimTreeFindFile<CR>', desc = '[E]xplorer [F]ind' },
+    { '<leader>ec', ':NvimTreeCollapse<CR>', desc = '[E]exporer [C]ollapse' },
+    { '<leader>er', ':NvimTreeRefresh<CR>', desc = '[E]xplorer [R]efresh' },
   },
   opts = {
     hijack_cursor = true,
