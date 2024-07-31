@@ -16,6 +16,7 @@ return {
     hijack_cursor = true,
     disable_netrw = true,
     renderer = {
+      root_folder_label = false,
       group_empty = true,
       special_files = { 'Cargo.toml', 'Makefile', 'package.json', 'package-lock.json', 'README.md', 'readme.md' },
       highlight_git = true,
