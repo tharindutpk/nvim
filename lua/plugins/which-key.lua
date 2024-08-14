@@ -12,7 +12,7 @@ return {
   },
   opts = {
     -- preset = 'classic',
-    expand = 3,
+    expand = 0,
     spec = {
       {
         mode = { 'n', 'v' },
