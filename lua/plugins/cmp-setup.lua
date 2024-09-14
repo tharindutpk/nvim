@@ -42,7 +42,7 @@ return {
       'Saecki/crates.nvim',
       event = { 'BufRead Cargo.toml' },
       opts = {
-        src = {
+        completion = {
           cmp = { enabled = true },
         },
       },
@@ -91,6 +91,7 @@ return {
         end, { 'i', 's' }),
       }),
       sources = {
+        { name = 'buffer' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
