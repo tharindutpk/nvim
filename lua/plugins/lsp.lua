@@ -296,4 +296,14 @@ return {
     event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
     config = function() end,
   },
+
+  {
+    'pmizio/typescript-tools.nvim',
+    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'neovim/nvim-lspconfig',
+    },
+    opts = {},
+  },
 }
