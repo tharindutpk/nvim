@@ -1,0 +1,46 @@
+return {
+  'saghen/blink.cmp',
+  event = { 'InsertEnter' },
+  dependencies = 'rafamadriz/friendly-snippets',
+  version = 'v0.*',
+  opts = {
+    keymap = { preset = 'default' },
+
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+
+    appearance = {
+      highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
+      use_nvim_cmp_as_default = true,
+      nerd_font_variant = 'mono',
+      kind_icons = {
+        Text = '󰉿',
+        Method = '󰆧',
+        Function = '󰊕',
+        Constructor = '󰒓',
+        Field = '󰜢',
+        Variable = '󰀫',
+        Property = '󰖷',
+        Class = '',
+        Interface = '',
+        Struct = '󰙅',
+        Module = '󰅩',
+        Unit = '',
+        Value = '󰎠',
+        Enum = '',
+        EnumMember = '',
+        Keyword = '󰻾',
+        Constant = '󰏿',
+        Snippet = '',
+        Color = '󰏘',
+        File = '󰈙',
+        Reference = '󰬲',
+        Folder = '󰉋',
+        Event = '󱐋',
+        Operator = '󰪚',
+        TypeParameter = '󰬛',
+      },
+    },
+  },
+}
