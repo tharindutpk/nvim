@@ -99,56 +99,8 @@ return {
       capabilities = vim.tbl_deep_extend('force', capabilities, require('blink.cmp').get_lsp_capabilities())
 
       local servers = {
-        emmet_ls = {
-          filetypes = {
-            'css',
-            'html',
-            'javascript',
-            'javascriptreact',
-            'less',
-            'sass',
-            'scss',
-            'svelte',
-            'templ',
-            'typescriptreact',
-          },
-          init_options = {
-            html = {
-              options = {
-                ['bem.enabled'] = true,
-              },
-            },
-          },
-        },
-        gopls = {
-          settings = {
-            gopls = {
-              gofumpt = true,
-              usePlaceholders = true,
-              completeUnimported = true,
-              staticcheck = true,
-              semanticTokens = true,
-              hints = {
-                assignVariableTypes = true,
-                compositeLiteralFields = true,
-                compositeLiteralTypes = true,
-                constantValues = true,
-                functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
-              },
-              analyses = {
-                fieldalignment = true,
-                nilness = true,
-                unusedparams = true,
-                unusedvariable = true,
-                unusedwrite = true,
-                useany = true,
-                shadow = true,
-              },
-            },
-          },
-        },
+        emmet_ls = {},
+        gopls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -169,32 +121,7 @@ return {
         },
         templ = {},
         cssls = {},
-        svelte = {
-          settings = {
-            typescript = {
-              updateImportsOnFileMove = { enabled = 'always' },
-              inlayHints = {
-                parameterNames = { enabled = 'all' },
-                parameterTypes = { enabled = true },
-                variableTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                enumMemberValues = { enabled = true },
-              },
-            },
-            javascript = {
-              updateImportsOnFileMove = { enabled = 'always' },
-              inlayHints = {
-                parameterNames = { enabled = 'literals' },
-                parameterTypes = { enabled = true },
-                variableTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                enumMemberValues = { enabled = true },
-              },
-            },
-          },
-        },
+        svelte = {},
         tailwindcss = {},
         rust_analyzer = {
           settings = {
@@ -245,48 +172,5 @@ return {
         },
       })
     end,
-  },
-
-  {
-    'utilyre/barbecue.nvim',
-    event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' },
-    name = 'barbecue',
-    version = '*',
-    dependencies = {
-      'SmiteshP/nvim-navic',
-      'nvim-tree/nvim-web-devicons',
-    },
-    opts = {
-      show_dirname = false,
-      show_basename = false,
-      kinds = {
-        Array = '',
-        Boolean = '',
-        Class = '',
-        Constant = '󰏿',
-        Constructor = '',
-        Enum = '',
-        EnumMember = '',
-        Event = '',
-        Field = '󰜢',
-        Function = '󰊕',
-        Interface = '',
-        Key = '',
-        Method = '',
-        Module = '',
-        Namespace = '',
-        Null = '',
-        Number = '',
-        Object = '',
-        Operator = '',
-        Package = '',
-        Property = '󰜢',
-        String = '',
-        Struct = '󰙅',
-        TypeParameter = '',
-        Variable = '󰀫',
-        File = '󰈙',
-      },
-    },
   },
 }
