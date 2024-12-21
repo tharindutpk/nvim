@@ -9,6 +9,7 @@ return {
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
+    signature = { enabled = true },
 
     appearance = {
       highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),

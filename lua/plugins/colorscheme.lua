@@ -5,9 +5,9 @@ return {
     lazy = false,
     config = function()
       require('catppuccin').setup({
-        favour = 'mocha', -- latte, frappe, macchiato, mocha
-        no_italic = true, -- Force no italic
-        no_bold = true, -- Force no bold
+        favour = 'mocha',
+        no_italic = true,
+        no_bold = true,
         color_overrides = {
           mocha = {},
         },
