@@ -1,6 +1,7 @@
 return {
   {
     'rmagatti/alternate-toggler',
+    event = { 'BufReadPost', 'BufNewFile' },
     keys = {
       { '<leader>tv', ':ToggleAlternate<CR>', desc = '[T]oggle [V]alue' },
     },
@@ -9,6 +10,7 @@ return {
 
   {
     'folke/todo-comments.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
     opts = {
       signs = false,
     },
@@ -16,11 +18,13 @@ return {
 
   {
     'folke/trouble.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
   },
 
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = { 'BufReadPost', 'BufNewFile' },
     main = 'ibl',
     opts = {
       indent = {
@@ -35,6 +39,7 @@ return {
 
   {
     'kylechui/nvim-surround',
+    event = { 'BufReadPost', 'BufNewFile' },
     version = '*',
     opts = {},
   },
