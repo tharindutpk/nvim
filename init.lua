@@ -8,6 +8,9 @@ require('config.options')
 -- [[ Basic Keymaps ]]
 require('config.keymaps')
 
+-- [[ Autocommands ]]
+require('config.autocmds')
+
 -- [[ Install lazy.nvim plugin manager ]]
 require('config.lazy')
 
