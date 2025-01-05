@@ -16,7 +16,15 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true },
+      {
+        'williamboman/mason.nvim',
+        cmd = 'Mason',
+        keys = {
+          { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' },
+        },
+        build = ':MasonUpdate',
+        config = true,
+      },
 
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -147,17 +155,29 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
+
+        gopls = {
+          settings = {
+            gopls = {
+              gofumpt = true,
+            },
+          },
+        },
+
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              disableOrganizeImports = true,
+              analysis = {
+                typeCheckingMode = 'standard', -- off, basic, standard, strict, all
+              },
+            },
+          },
+        },
+
+        ruff = {},
+
+        rust_analyzer = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -187,7 +207,13 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
+        'eslint_d',
+        'gofumpt',
+        'goimports',
+        'golines',
+        'prettierd',
+        'shfmt',
+        'stylua',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
@@ -199,6 +225,14 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            if server_name ~= nil then
+              if server_name == 'rust_analyzer' then
+                return
+              elseif server_name == 'ruff' then
+                -- disable hover in favor of pyright
+                server.capabilities.hoverProvider = false
+              end
+            end
             require('lspconfig')[server_name].setup(server)
           end,
         },

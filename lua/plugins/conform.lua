@@ -1,6 +1,7 @@
 return {
   {
     'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
@@ -15,6 +16,11 @@ return {
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
+        -- Disable with a global or buffer-local variable
+        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+          return
+        end
+
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
@@ -31,12 +37,12 @@ return {
         }
       end,
       formatters_by_ft = {
+        go = { 'goimports', 'golines', 'gofumpt' },
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
+        python = { 'ruff_format' },
+        sh = { 'shfmt' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
   },

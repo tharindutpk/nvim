@@ -25,7 +25,6 @@ require('lazy').setup({
     enabled = true,
     notify = false,
   },
-  checker = { enabled = true },
   performance = {
     cache = {
       enabled = true,

@@ -1,14 +1,13 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    event = { 'BufReadPost', 'BufNewFile' },
+    event = { 'BufReadPre', 'BufNewFile' },
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
       {
         'nvim-treesitter/nvim-treesitter-context',
-        enabled = true,
         opts = {
           mode = 'cursor',
           max_lines = 1,
