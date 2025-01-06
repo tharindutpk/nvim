@@ -2,49 +2,34 @@ return {
   {
     'goolord/alpha-nvim',
     event = 'VimEnter',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      local alpha = require('alpha')
+    opts = function()
       local startify = require('alpha.themes.startify')
+      local header = {}
+      local header_image = [[
+     |\_/|
+     | @ @   Woof! Who dares, wins 
+     |   <>              _
+     |  _/\------____ ((| |))
+     |               `--' |
+ ____|_       ___|   |___.'
+/_/_____/____/_______| ]]
 
-      local ascii_header = [[
-            ,
-            |`-.__
-            / ' _/
-           ****` 
-          /    }
-         /  \ /
-     \ /`   \\\
-jgs   `\    /_\\
-       `~~~~~``~`
-    ]]
-
-      local function center_header(header)
-        local lines = {}
-        for line in string.gmatch(header, '[^\n]+') do
-          table.insert(lines, line)
-        end
-
-        local width = vim.api.nvim_win_get_width(0) -- Get the width of the current window
-        local padding = math.floor((width - #lines[1]) / 100) -- Calculate padding based on the first line length
-        for i, line in ipairs(lines) do
-          lines[i] = string.rep(' ', padding) .. line
-        end
-        return lines
+      for _, line in pairs(vim.fn.split(header_image, '\n')) do
+        table.insert(header, '     ' .. line)
       end
 
-      local custom_header = center_header(ascii_header)
+      startify.section.header.val = header
 
-      startify.section.header.val = custom_header
+      -- Add margins to the top and left
+      startify.opts.layout[1].val = 8
+      startify.opts.layout[7].val = 1
+      startify.opts.opts.margin = 30
 
-      -- add margins to the top and left
-      startify.opts.layout[1].val = 5
-      startify.opts.opts.margin = 60
-
-      -- disable MRU
+      -- Disable MRU (saves some miliseconds)
       startify.section.mru.val = {}
+      startify.section.mru_cwd.val = {}
+      startify.section.bottom_buttons.val = {}
 
-      -- Set menu
       startify.section.top_buttons.val = {
         startify.button('e', ' > New file', '<cmd>ene<CR>'),
         startify.button('o', ' > Recently opened', '<cmd>FzfLua oldfiles<CR>'),
@@ -52,13 +37,60 @@ jgs   `\    /_\\
         startify.button('g', ' > Find word', '<cmd>FzfLua live_grep_native<CR>'),
         startify.button('s', ' > Restore session', [[<cmd> lua require("persistence").load() <cr>]]),
         startify.button('l', ' > Open lazy', '<cmd> Lazy <cr>'),
+        startify.button('q', ' > Quit', '<cmd>  <cr>'),
       }
 
-      -- Send config to alpha
-      alpha.setup(startify.config)
+      for _, button in ipairs(startify.section.top_buttons.val) do
+        button.opts.hl = 'AlphaButtons'
+        button.opts.hl_shortcut = 'AlphaShortcut'
+      end
 
-      -- Disable folding on alpha buffer
-      vim.cmd([[autocmd FileType alpha setlocal nofoldenable]])
+      return startify
+    end,
+
+    config = function(_, startify)
+      -- Close Lazy and re-open when the dashboard is ready
+      if vim.o.filetype == 'lazy' then
+        vim.cmd.close()
+        vim.api.nvim_create_autocmd('User', {
+          once = true,
+          pattern = 'AlphaReady',
+          callback = function()
+            require('lazy').show()
+          end,
+        })
+      end
+
+      -- startify.config.layout = {
+      --   { type = 'padding', val = 1 },
+      --   startify.section.header,
+      --   { type = 'padding', val = 2 },
+      --   startify.section.top_buttons,
+      --   { type = 'padding', val = 1 },
+      --   startify.section.bottom_buttons,
+      --   { type = 'padding', val = 1 },
+      --   startify.section.footer,
+      -- }
+
+      require('alpha').setup(startify.config)
+
+      vim.api.nvim_create_autocmd('User', {
+        once = true,
+        pattern = 'LazyVimStarted',
+        callback = function()
+          local stats = require('lazy').stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          startify.section.footer.val = {
+            {
+              type = 'text',
+              val = function()
+                return ' ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms'
+              end,
+            },
+          }
+          pcall(vim.cmd.AlphaRedraw)
+        end,
+      })
     end,
   },
 }
