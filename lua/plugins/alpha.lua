@@ -37,7 +37,7 @@ return {
         startify.button('g', ' > Find word', '<cmd>FzfLua live_grep_native<CR>'),
         startify.button('s', ' > Restore session', [[<cmd> lua require("persistence").load() <cr>]]),
         startify.button('l', ' > Open lazy', '<cmd> Lazy <cr>'),
-        startify.button('q', ' > Quit', '<cmd>  <cr>'),
+        startify.button('q', ' > Quit', '<cmd>:qa<CR>'),
       }
 
       for _, button in ipairs(startify.section.top_buttons.val) do
@@ -61,17 +61,6 @@ return {
         })
       end
 
-      -- startify.config.layout = {
-      --   { type = 'padding', val = 1 },
-      --   startify.section.header,
-      --   { type = 'padding', val = 2 },
-      --   startify.section.top_buttons,
-      --   { type = 'padding', val = 1 },
-      --   startify.section.bottom_buttons,
-      --   { type = 'padding', val = 1 },
-      --   startify.section.footer,
-      -- }
-
       require('alpha').setup(startify.config)
 
       vim.api.nvim_create_autocmd('User', {
@@ -86,6 +75,7 @@ return {
               val = function()
                 return ' ' .. stats.loaded .. '/' .. stats.count .. ' plugins in ' .. ms .. 'ms'
               end,
+              opts = { hl = 'AlphaFooter' },
             },
           }
           pcall(vim.cmd.AlphaRedraw)

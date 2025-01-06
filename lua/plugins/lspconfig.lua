@@ -29,7 +29,19 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
-      { 'j-hui/fidget.nvim', opts = {} },
+      {
+        'j-hui/fidget.nvim',
+        opts = {},
+        config = function()
+          require('fidget').setup({
+            notification = {
+              window = {
+                winblend = 0,
+              },
+            },
+          })
+        end,
+      },
       'saghen/blink.cmp',
     },
     config = function()

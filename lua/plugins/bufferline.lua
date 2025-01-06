@@ -27,6 +27,11 @@ return {
         },
       },
     },
+    config = function()
+      require('bufferline').setup({
+        highlights = require('catppuccin.groups.integrations.bufferline').get(),
+      })
+    end,
   },
 }
 -- vim: ts=2 sts=2 sw=2 et

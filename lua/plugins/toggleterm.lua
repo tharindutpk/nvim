@@ -1,7 +1,7 @@
 return {
   {
     'akinsho/toggleterm.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     version = '*',
     opts = {
       open_mapping = [[<c-\>]],
