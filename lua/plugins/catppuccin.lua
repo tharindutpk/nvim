@@ -8,12 +8,6 @@ return {
         favour = 'mocha',
         no_italic = true,
         integrations = {
-          barbecue = {
-            dim_dirname = true,
-            bold_basename = true,
-            dim_context = true,
-            alt_background = true,
-          },
           blink_cmp = true,
           fidget = true,
           fzf = true,
