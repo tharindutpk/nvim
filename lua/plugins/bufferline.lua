@@ -17,18 +17,19 @@ return {
       { '[B', '<cmd>BufferLineMovePrev<cr>', desc = 'Move buffer prev' },
       { ']B', '<cmd>BufferLineMoveNext<cr>', desc = 'Move buffer next' },
     },
-    opts = {
-      options = {
-        offsets = {
-          {
-            filetype = 'NvimTree',
-            separator = true,
-          },
-        },
-      },
-    },
     config = function()
       require('bufferline').setup({
+        options = {
+          show_buffer_close_icons = false,
+          offsets = {
+            {
+              filetype = 'NvimTree',
+              highlight = 'Directory',
+              separator = true,
+              text = 'File Explorer',
+            },
+          },
+        },
         highlights = require('catppuccin.groups.integrations.bufferline').get(),
       })
     end,

@@ -16,7 +16,7 @@ return {
         lualine_c = { { 'filename', file_status = true, path = 1 } },
         lualine_x = { 'diff', 'diagnostics', 'encoding', 'fileformat', 'filetype' },
       },
-      extensions = { 'lazy', 'mason', 'toggleterm' },
+      extensions = { 'lazy', 'mason', 'nvim-tree', 'toggleterm' },
     },
   },
 }
