@@ -6,8 +6,10 @@ return {
     opts = {
       keymap = { preset = 'super-tab' },
       completion = {
+        documentation = { auto_show = true, window = { border = 'none' } },
         menu = {
           draw = {
+            padding = 0,
             columns = {
               { 'label', 'label_description', gap = 1 },
               { 'kind_icon', 'kind', gap = 1 },
