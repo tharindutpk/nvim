@@ -38,11 +38,11 @@ return {
       end,
       formatters_by_ft = {
         go = { 'goimports', 'golines', 'gofumpt' },
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
         sh = { 'shfmt' },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd' },
       },
     },
   },
