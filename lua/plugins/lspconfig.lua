@@ -251,7 +251,6 @@ return {
         'eslint_d',
         'gofumpt',
         'goimports',
-        'golines',
         'prettierd',
         'shfmt',
         'stylua',

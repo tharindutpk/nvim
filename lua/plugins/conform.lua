@@ -37,7 +37,7 @@ return {
         }
       end,
       formatters_by_ft = {
-        go = { 'goimports', 'golines', 'gofumpt' },
+        go = { 'goimports', 'gofumpt' },
         javascript = { 'prettierd' },
         lua = { 'stylua' },
         python = { 'ruff_format' },
