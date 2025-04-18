@@ -16,15 +16,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      {
-        'williamboman/mason.nvim',
-        cmd = 'Mason',
-        keys = {
-          { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' },
-        },
-        build = ':MasonUpdate',
-        config = true,
-      },
+      { 'williamboman/mason.nvim', opts = {} },
 
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -258,6 +250,8 @@ return {
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
       require('mason-lspconfig').setup({
+        ensure_installed = {},
+        automatic_installation = true,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
