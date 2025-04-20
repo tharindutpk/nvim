@@ -246,6 +246,7 @@ return {
         'prettierd',
         'shfmt',
         'stylua',
+        'markdownlint',
       })
       require('mason-tool-installer').setup({ ensure_installed = ensure_installed })
 
