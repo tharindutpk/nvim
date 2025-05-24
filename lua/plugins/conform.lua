@@ -40,6 +40,7 @@ return {
         go = { 'goimports', 'gofumpt' },
         javascript = { 'prettierd' },
         lua = { 'stylua' },
+        markdown = { 'prettierd' },
         python = { 'ruff_format' },
         sh = { 'shfmt' },
         typescript = { 'prettierd' },
