@@ -28,7 +28,7 @@ return {
           require('fidget').setup({
             notification = {
               window = {
-                winblend = 0,
+                winblend = 100,
               },
             },
           })
@@ -209,8 +209,6 @@ return {
         },
 
         ruff = {},
-
-        rust_analyzer = {},
 
         lua_ls = {
           -- cmd = { ... },
