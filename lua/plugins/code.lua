@@ -8,13 +8,13 @@ return {
     opts = {},
   },
 
-  {
-    'folke/todo-comments.nvim',
-    event = { 'BufReadPost', 'BufNewFile' },
-    opts = {
-      signs = false,
-    },
-  },
+  -- {
+  --   'folke/todo-comments.nvim',
+  --   event = { 'BufReadPost', 'BufNewFile' },
+  --   opts = {
+  --     signs = false,
+  --   },
+  -- },
 
   {
     'folke/trouble.nvim',
