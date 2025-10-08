@@ -16,9 +16,12 @@ return {
       local fzf = require('fzf-lua')
       vim.keymap.set('n', '<leader>sh', fzf.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', fzf.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', fzf.files, { desc = '[F]ind [F]iles' })
+      vim.keymap.set('n', '<leader>sf', fzf.files, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>sw', fzf.grep_cword, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', fzf.live_grep_native, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sl', function()
+        fzf.grep({ resume = true })
+      end, { desc = '[S]earch by [L]ast' })
       vim.keymap.set('n', '<leader>sd', fzf.lsp_document_diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>so', function()
         fzf.oldfiles({
