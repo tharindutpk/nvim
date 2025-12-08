@@ -38,6 +38,7 @@ return {
       end,
       formatters_by_ft = {
         css = { 'prettierd' },
+        cpp = { 'clang_format' },
         go = { 'goimports', 'gofumpt' },
         html = { 'prettierd' },
         javascript = { 'prettierd' },

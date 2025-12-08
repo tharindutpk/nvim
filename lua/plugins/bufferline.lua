@@ -1,7 +1,6 @@
 return {
   {
     'akinsho/bufferline.nvim',
-    enabled = false,
     event = { 'BufReadPre', 'BufNewFile' },
     version = '*',
     dependencies = 'nvim-tree/nvim-web-devicons',
@@ -31,7 +30,7 @@ return {
             },
           },
         },
-        highlights = require('catppuccin.groups.integrations.bufferline').get(),
+        highlights = require('catppuccin.special.bufferline').get_theme(),
       })
     end,
   },
