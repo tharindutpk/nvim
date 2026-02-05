@@ -1,9 +1,8 @@
-return {
-  'akinsho/toggleterm.nvim',
-  event = { 'BufReadPre', 'BufNewFile' },
-  version = '*',
-  opts = {
-    open_mapping = [[<c-\>]],
-    size = 12,
-  },
-}
+vim.pack.add({
+  { src = 'https://github.com/akinsho/toggleterm.nvim' },
+})
+
+require('toggleterm').setup({
+  open_mapping = [[<c-\>]],
+  size = 12,
+})

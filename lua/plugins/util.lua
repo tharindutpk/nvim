@@ -1,7 +1,21 @@
-return {
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+vim.pack.add({
+  { src = 'https://github.com/kylechui/nvim-surround' },
+  { src = 'https://github.com/rmagatti/alternate-toggler' },
+  { src = 'https://github.com/saghen/blink.indent' },
+})
 
-  { 'nvim-lua/plenary.nvim', lazy = true },
+require('nvim-surround').setup({})
 
-  { 'dstein64/vim-startuptime', cmd = 'StartupTime' },
-}
+require('alternate-toggler').setup({})
+
+require('blink.indent').setup({
+  static = {
+    char = '│',
+  },
+  scope = {
+    char = '│',
+    highlights = { 'BlinkIndentScope' },
+  },
+})
+
+vim.keymap.set('n', '<leader>ta', ':ToggleAlternate<CR>', { desc = '[T]oggle [A]lternate' })
