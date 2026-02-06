@@ -1,22 +1,20 @@
--- [[ Basic autocommands ]]
---  See `:help lua-guide-autocommands`
+-- autocmds
+-- :help lua-guide-autocommands
+
 local function augroup(name)
   return vim.api.nvim_create_augroup('tharindutpk_' .. name, { clear = true })
 end
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
+-- yank
 vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
   group = augroup('highlight_yank'),
+  desc = 'Highlight on yank',
   callback = function()
     vim.hl.on_yank()
   end,
 })
 
--- Format enable/ disable toggle for autoformatting
---  Made to work with conform
+-- format
 vim.api.nvim_create_user_command('FormatDisable', function(args)
   if args.bang then
     vim.b.disable_autoformat = true
@@ -24,7 +22,7 @@ vim.api.nvim_create_user_command('FormatDisable', function(args)
     vim.g.disable_autoformat = true
   end
 end, {
-  desc = 'Disable autoformat-on-save',
+  desc = 'Disable autoformat on save',
   bang = true,
 })
 
@@ -32,34 +30,37 @@ vim.api.nvim_create_user_command('FormatEnable', function()
   vim.b.disable_autoformat = false
   vim.g.disable_autoformat = false
 end, {
-  desc = 'Re-enable autoformat-on-save',
+  desc = 'Enable autoformat on save',
 })
 
--- Go to last location when opening a buffer
+-- buffers
 vim.api.nvim_create_autocmd('BufReadPost', {
   group = augroup('last_location'),
+  desc = 'Restore last cursor position',
   callback = function(event)
     local buf = event.buf
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
+
     if mark[1] > 0 and mark[1] <= lcount then
       pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
 })
 
--- Close some filetypes with <q>
+-- quit
 vim.api.nvim_create_autocmd('FileType', {
   group = augroup('close_with_q'),
   pattern = {
     'checkhealth',
     'gitsigns-blame',
     'help',
-    'lspinfo',
+    'nvim-pack',
     'startuptime',
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
+
     vim.schedule(function()
       vim.keymap.set('n', 'q', function()
         vim.cmd('close')
@@ -72,15 +73,3 @@ vim.api.nvim_create_autocmd('FileType', {
     end)
   end,
 })
-
--- Restart the last overseer task
-vim.api.nvim_create_user_command('OverseerRestartLast', function()
-  local overseer = require('overseer')
-  local tasks = overseer.list_tasks({ recent_first = true })
-  if vim.tbl_isempty(tasks) then
-    vim.notify('No tasks found', vim.log.levels.WARN)
-  else
-    overseer.run_action(tasks[1], 'restart')
-  end
-end, {})
--- vim: ts=2 sts=2 sw=2 et

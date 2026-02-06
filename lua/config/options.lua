@@ -1,72 +1,41 @@
--- [[ Setting options ]]
--- See `:help vim.opt`
+-- options
+-- :help vim.opt
 
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+local opt = vim.opt
+local o = vim.o
 
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+-- ui
+opt.number = true -- line numbers
+opt.relativenumber = true -- relative numbers
+opt.cursorline = true -- highlight current line
+opt.scrolloff = 10 -- keep context while scrolling
+opt.signcolumn = 'yes' -- always show signs
+opt.showmode = false -- hide mode (statusline handles it)
 
--- Don't show the mode, since it's already in the status line
-vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
+-- input
+opt.mouse = 'a' -- enable mouse
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  opt.clipboard = 'unnamedplus' -- sync system clipboard
 end)
 
--- Enable break indent
-vim.opt.breakindent = true
+-- editing
+o.shiftwidth = 2 -- indent width
+o.tabstop = 2 -- tab width
+opt.breakindent = true -- indent wrapped lines
+opt.undofile = true -- persistent undo
 
--- Save undo history
-vim.opt.undofile = true
+-- search
+opt.ignorecase = true -- case-insensitive search
+opt.smartcase = true -- uppercase overrides ignorecase
 
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+-- windows
+opt.splitright = true -- vertical splits to the right
+opt.splitbelow = true -- horizontal splits below
 
--- Keep signcolumn on by default
-vim.opt.signcolumn = 'yes'
-
--- Decrease update time
-vim.opt.updatetime = 250
-
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 300
-
--- Configure how new splits should be opened
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.breakindent = false
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = false
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-
--- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
-
--- Confirm before pressing :q with unsaved changes
-vim.opt.confirm = true
-
--- 2 spaces for indent width
-vim.o.shiftwidth = 2
-
--- Set tab stops
-vim.o.tabstop = 2
--- vim: ts=2 sts=2 sw=2 et
+-- behavior
+opt.list = false -- hide whitespace
+opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- whitespace symbols
+opt.updatetime = 250 -- faster updates
+opt.timeoutlen = 300 -- faster mappings
+opt.inccommand = 'split' -- live substitution preview
+opt.confirm = true -- confirm on unsaved quit
