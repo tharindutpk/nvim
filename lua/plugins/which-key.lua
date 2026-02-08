@@ -5,9 +5,9 @@ vim.pack.add({
 require('which-key').setup({
   delay = 200,
   spec = {
-    { '<leader>r', group = '[R]ename' },
-    { '<leader>s', group = '[S]earch' },
-    { '<leader>t', group = '[T]oggle' },
-    { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+    { '<leader>r', group = 'Rename' },
+    { '<leader>s', group = 'Search' },
+    { '<leader>t', group = 'Toggle' },
+    { '<leader>h', group = 'Git hunk', mode = { 'n', 'v' } },
   },
 })

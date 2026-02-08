@@ -18,4 +18,4 @@ require('blink.indent').setup({
   },
 })
 
-vim.keymap.set('n', '<leader>ta', ':ToggleAlternate<CR>', { desc = '[T]oggle [A]lternate' })
+vim.keymap.set('n', '<leader>ta', ':ToggleAlternate<CR>', { desc = 'Toggle alternate' })

@@ -31,7 +31,7 @@ require('nvim-tree').setup({
   },
 })
 
-vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { desc = '[E]xplorer' })
-vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>', { desc = '[E]xplorer [F]ind' })
-vim.keymap.set('n', '<leader>ec', ':NvimTreeCollapse<CR>', { desc = '[E]exporer [C]ollapse' })
-vim.keymap.set('n', '<leader>er', ':NvimTreeRefresh<CR>', { desc = '[E]xplorer [R]efresh' })
+vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
+vim.keymap.set('n', '<leader>ef', ':NvimTreeFindFile<CR>', { desc = 'Explorer find' })
+vim.keymap.set('n', '<leader>ec', ':NvimTreeCollapse<CR>', { desc = 'Eexporer collapse' })
+vim.keymap.set('n', '<leader>er', ':NvimTreeRefresh<CR>', { desc = 'Explorer refresh' })
