@@ -1,14 +1,14 @@
 vim.pack.add({
-  { src = 'https://github.com/mfussenegger/nvim-lint' },
+  { src = "https://github.com/mfussenegger/nvim-lint" },
 })
 
-local lint = require('lint')
+local lint = require("lint")
 lint.linters_by_ft = {
-  markdown = { 'markdownlint' },
+  markdown = { "markdownlint" },
 }
 
-vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
-  group = vim.api.nvim_create_augroup('lint', { clear = true }),
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+  group = vim.api.nvim_create_augroup("lint", { clear = true }),
   callback = function()
     if vim.opt_local.modifiable:get() then
       lint.try_lint()
@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
   end,
 })
 
-vim.keymap.set('n', '<leader>l', function()
+vim.keymap.set("n", "<leader>l", function()
   if vim.opt_local.modifiable:get() then
     lint.try_lint()
   end
-end, { desc = 'Trigger linting for current file' })
+end, { desc = "Trigger linting for current file" })

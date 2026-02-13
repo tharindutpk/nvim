@@ -1,76 +1,53 @@
 vim.pack.add({
-  { src = 'https://github.com/stevearc/conform.nvim' },
+  { src = "https://github.com/stevearc/conform.nvim" },
 })
 
-local conform = require('conform')
-
-conform.setup({
+require("conform").setup({
   format_on_save = function(bufnr)
-    -- Global or buffer-local disable
     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
       return
     end
-
-    -- Disable LSP fallback for non-standardized styles
-    local disable_filetypes = {
-      lua = true,
-    }
-
-    local lsp_format_opt
-    if disable_filetypes[vim.bo[bufnr].filetype] then
-      lsp_format_opt = 'never'
-    else
-      lsp_format_opt = 'fallback'
-    end
-
-    return {
-      lsp_format = lsp_format_opt,
-      timeout_ms = 500,
-    }
+    return { timeout_ms = 500, lsp_format = "fallback" }
   end,
   formatters_by_ft = {
-    css = { 'prettierd' },
-    cpp = { 'clang_format' },
-    go = { 'goimports', 'gofumpt' },
-    html = { 'prettierd' },
-    javascript = { 'prettierd' },
-    javascriptreact = { 'prettierd' },
-    json = { 'prettierd' },
-    jsonc = { 'prettierd' },
-    lua = { 'stylua' },
-    markdown = { 'prettierd' },
-    python = { 'ruff_format' },
-    sh = { 'shfmt' },
-    typescript = { 'prettierd' },
-    typescriptreact = { 'prettierd' },
-    yaml = { 'prettierd' },
+    css = { "prettierd" },
+    cpp = { "clang_format" },
+    go = { "goimports", "gofumpt" },
+    html = { "prettierd" },
+    javascript = { "prettierd" },
+    javascriptreact = { "prettierd" },
+    json = { "prettierd" },
+    jsonc = { "prettierd" },
+    lua = { "stylua" },
+    markdown = { "prettierd" },
+    python = { "ruff_organize_imports", "ruff_format" },
+    sh = { "shfmt" },
+    typescript = { "prettierd" },
+    typescriptreact = { "prettierd" },
+    yaml = { "prettierd" },
   },
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>fb', function()
-  conform.format({
+vim.keymap.set("n", "<leader>fb", function()
+  require("conform").format({
     async = true,
-    lsp_format = 'fallback',
+    lsp_format = "fallback",
   })
-end, {
-  desc = 'Format buffer or selection',
-})
+end, { desc = "Format buffer" })
 
--- User commands: enable / disable autoformat
-vim.api.nvim_create_user_command('FormatDisable', function(args)
-  if args.bang then
+vim.keymap.set("n", "<leader>ci", "<cmd>ConformInfo<CR>", { desc = "Conform info" })
+
+vim.keymap.set("n", "<leader>tf", function()
+  if not vim.b.disable_autoformat and not vim.g.disable_autoformat then
     vim.b.disable_autoformat = true
-  else
+    print("Autoformat disabled (buffer)")
+  elseif vim.b.disable_autoformat then
+    vim.b.disable_autoformat = nil
     vim.g.disable_autoformat = true
+    print("Autoformat disabled (global)")
+  else
+    vim.g.disable_autoformat = nil
+    vim.b.disable_autoformat = nil
+    print("Autoformat enabled")
   end
-end, {
-  desc = 'Disable autoformat on save',
-  bang = true,
-})
-
-vim.api.nvim_create_user_command('FormatEnable', function()
-  vim.b.disable_autoformat = false
-  vim.g.disable_autoformat = false
-end, {
-  desc = 'Enable autoformat on save',
-})
+end, { desc = "Toggle autoformat" })

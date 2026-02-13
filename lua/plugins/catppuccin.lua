@@ -1,9 +1,9 @@
 vim.pack.add({
-  { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' },
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 })
 
-require('catppuccin').setup({
-  favour = 'latte',
+require("catppuccin").setup({
+  favour = "mocha",
   no_italic = true,
   integrations = {
     blink_cmp = true,
@@ -11,8 +11,9 @@ require('catppuccin').setup({
     fzf = true,
     mason = true,
     lsp_trouble = true,
+    snacks = true,
   },
-  compile_path = vim.fn.stdpath('cache') .. '/catppuccin',
+  compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 })
 
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme("catppuccin")

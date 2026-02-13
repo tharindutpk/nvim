@@ -9,13 +9,13 @@ opt.number = true -- line numbers
 opt.relativenumber = true -- relative numbers
 opt.cursorline = true -- highlight current line
 opt.scrolloff = 10 -- keep context while scrolling
-opt.signcolumn = 'yes' -- always show signs
+opt.signcolumn = "yes" -- always show signs
 opt.showmode = false -- hide mode (statusline handles it)
 
 -- input
-opt.mouse = 'a' -- enable mouse
+opt.mouse = "a" -- enable mouse
 vim.schedule(function()
-  opt.clipboard = 'unnamedplus' -- sync system clipboard
+  opt.clipboard = "unnamedplus" -- sync system clipboard
 end)
 
 -- editing
@@ -34,8 +34,8 @@ opt.splitbelow = true -- horizontal splits below
 
 -- behavior
 opt.list = false -- hide whitespace
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' } -- whitespace symbols
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" } -- whitespace symbols
 opt.updatetime = 250 -- faster updates
 opt.timeoutlen = 300 -- faster mappings
-opt.inccommand = 'split' -- live substitution preview
+opt.inccommand = "split" -- live substitution preview
 opt.confirm = true -- confirm on unsaved quit

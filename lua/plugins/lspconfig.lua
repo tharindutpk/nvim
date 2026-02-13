@@ -1,12 +1,32 @@
 vim.pack.add({
-  { src = 'https://github.com/mason-org/mason.nvim.git' },
-  { src = 'https://github.com/mason-org/mason-lspconfig.nvim.git' },
-  { src = 'https://github.com/neovim/nvim-lspconfig.git' },
-  { src = 'https://github.com/j-hui/fidget.nvim' },
+  { src = "https://github.com/mason-org/mason.nvim.git" },
+  { src = "https://github.com/j-hui/fidget.nvim" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 })
 
-require('mason').setup()
-require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'gopls', 'basedpyright' },
+local ensure_installed = {
+  -- Language servers
+  "clangd",
+  "gopls",
+  "lua-language-server",
+  "basedpyright",
+  "ruff",
+
+  -- Formatters / linters
+  "biome",
+  "clang-format",
+  "eslint_d",
+  "gofumpt",
+  "goimports",
+  "prettierd",
+  "shfmt",
+  "stylua",
+  "markdownlint",
+  "ty",
+}
+
+require("mason").setup()
+require("fidget").setup()
+require("mason-tool-installer").setup({
+  ensure_installed = ensure_installed,
 })
-require('fidget').setup()

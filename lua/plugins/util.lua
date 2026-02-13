@@ -1,21 +1,21 @@
 vim.pack.add({
-  { src = 'https://github.com/kylechui/nvim-surround' },
-  { src = 'https://github.com/rmagatti/alternate-toggler' },
-  { src = 'https://github.com/saghen/blink.indent' },
+  { src = "https://github.com/kylechui/nvim-surround" },
+  { src = "https://github.com/rmagatti/alternate-toggler" },
+  { src = "https://github.com/saghen/blink.indent" },
 })
 
-require('nvim-surround').setup({})
+require("nvim-surround").setup({})
 
-require('alternate-toggler').setup({})
+require("alternate-toggler").setup({})
 
-require('blink.indent').setup({
+require("blink.indent").setup({
   static = {
-    char = '│',
+    char = "│",
   },
   scope = {
-    char = '│',
-    highlights = { 'BlinkIndentScope' },
+    char = "│",
+    highlights = { "BlinkIndentScope" },
   },
 })
 
-vim.keymap.set('n', '<leader>ta', ':ToggleAlternate<CR>', { desc = 'Toggle alternate' })
+vim.keymap.set("n", "<leader>ta", "<cmd>ToggleAlternate<CR>", { desc = "Toggle alternate" })
