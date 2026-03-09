@@ -9,8 +9,8 @@ local ensure_installed = {
   "clangd",
   "gopls",
   "lua-language-server",
-  "basedpyright",
-  "ruff",
+  "ty",
+  "typescript-language-server",
 
   -- Formatters / linters
   "biome",
@@ -19,10 +19,10 @@ local ensure_installed = {
   "gofumpt",
   "goimports",
   "prettierd",
+  "ruff",
   "shfmt",
   "stylua",
   "markdownlint",
-  "ty",
 }
 
 require("mason").setup()
