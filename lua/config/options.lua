@@ -11,6 +11,7 @@ opt.cursorline = true -- highlight current line
 opt.scrolloff = 10 -- keep context while scrolling
 opt.signcolumn = "yes" -- always show signs
 opt.showmode = false -- hide mode (statusline handles it)
+o.winborder = "solid"
 
 -- input
 opt.mouse = "a" -- enable mouse
