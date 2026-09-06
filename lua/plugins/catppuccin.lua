@@ -9,6 +9,7 @@ require("catppuccin").setup({
   -- gitsigns, nvimtree and treesitter_context; only the ones that ship
   -- disabled need listing here.
   integrations = {
+    diffview = true,
     fidget = true,
     mason = true,
     nvim_surround = true,

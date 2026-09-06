@@ -17,6 +17,7 @@ require("plugins.blink")
 require("plugins.conform")
 require("plugins.lint")
 require("plugins.gitsigns")
+require("plugins.diffview")
 
 -- ui chrome
 require("plugins.lualine")

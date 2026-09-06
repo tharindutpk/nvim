@@ -101,6 +101,7 @@ groups below as you type.
 | prefix | group |
 | --- | --- |
 | `<leader>s` | Search (fzf-lua) |
+| `<leader>g` | Git changesets (diffview, normal + visual) |
 | `<leader>h` | Git hunk (gitsigns, normal + visual) |
 | `<leader>e` | Explorer (nvim-tree) |
 | `<leader>b` | Buffer (bufferline) |
@@ -117,6 +118,26 @@ LSP mappings are buffer-local and follow Neovim's `gr` defaults (`:help
 lsp-defaults`), pointed at fzf-lua pickers: `grd` definition, `grt` type
 definition, `grr` references, `gri` implementation, `grD` declaration, `grn`
 rename, `gra` code action, `gO` document symbols, `gW` workspace symbols.
+
+## Reviewing changes
+
+gitsigns handles the hunk in front of you; diffview handles the changeset.
+
+| mapping | what it opens |
+| --- | --- |
+| `<leader>gd` | every uncommitted change, file panel on the left |
+| `<leader>gm` | this branch against its merge base with `origin/HEAD` |
+| `<leader>gh` | the history of the current file (visual mode: of the selection) |
+| `<leader>gH` | the history of the whole branch |
+| `<leader>gq` | close |
+
+Inside a diffview: `<Tab>` and `<S-Tab>` step through files, `q` closes,
+`<leader>e` and `<leader>b` toggle the panel. `:DiffviewOpen` takes any git
+revision argument — `HEAD~3`, `main..feature`, `v1.0..v2.0`.
+
+Conflicts open in a three-way layout (`diff3_mixed`), with `<leader>co`,
+`<leader>ct` and `<leader>cb` choosing ours, theirs or base, and `]x` / `[x`
+jumping between conflicts.
 
 ## Snippets
 
