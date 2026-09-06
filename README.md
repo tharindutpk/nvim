@@ -66,6 +66,29 @@ Language servers are declared one per file in `lsp/` and switched on by the
 `servers` list in `lua/config/lsp.lua`. TypeScript is handled by
 typescript-tools, Rust by rustaceanvim; neither goes through that list.
 
+### Per language
+
+| language | server | formatter | linter |
+| --- | --- | --- | --- |
+| TypeScript / JS / React | typescript-tools | prettierd | biome |
+| Svelte | svelte-language-server | prettierd | biome |
+| Python | ruff + ty | ruff | ruff |
+| Rust | rustaceanvim | rust-analyzer | rust-analyzer |
+| Go | gopls | goimports + gofumpt | gopls |
+| C / C++ | clangd | clang-format | clangd |
+| Bash | bash-language-server | shfmt | shellcheck |
+| SQL | — | sql-formatter | — |
+| Lua | lua_ls | stylua | — |
+
+**biome lints, prettier formats.** Splitting them this way keeps one formatter
+across `.ts` and `.svelte` — biome does not format Svelte markup, so using it
+for both would leave the two halves of a component in different styles. With no
+`biome.json` in the project, biome lints against its recommended rules.
+
+SQL gets a parser and a formatter but no language server: the useful SQL
+servers want a live database connection, which is more setup than it is worth
+here.
+
 Everything mason installs is listed in `lua/plugins/mason.lua`. Keep that list
 in sync with `lsp/`, the `formatters_by_ft` table in `lua/plugins/conform.lua`,
 and `linters_by_ft` in `lua/plugins/lint.lua`.
@@ -94,6 +117,34 @@ LSP mappings are buffer-local and follow Neovim's `gr` defaults (`:help
 lsp-defaults`), pointed at fzf-lua pickers: `grd` definition, `grt` type
 definition, `grr` references, `gri` implementation, `grD` declaration, `grn`
 rename, `gra` code action, `gO` document symbols, `gW` workspace symbols.
+
+## Snippets
+
+Expansion is Nvim's native `vim.snippet`; blink.cmp surfaces the candidates.
+Two sources feed it, both picked up automatically:
+
+* **friendly-snippets** — the community library, covering every language here.
+* **`snippets/` in this repo** — personal ones, in VS Code snippet format.
+  `snippets/<filetype>.json` applies to that filetype; `snippets/all.json`
+  applies everywhere.
+
+```json
+{
+  "Snippet name shown in the menu": {
+    "prefix": "trigger",
+    "body": ["line one $1", "line two $0"],
+    "description": "What it does"
+  }
+}
+```
+
+`$1`, `$2`, … are tab stops, `$0` is where the cursor ends up, `${1:default}`
+gives a placeholder, and `$CURRENT_YEAR` and friends are filled in on expand.
+`<Tab>` and `<S-Tab>` move between stops. Files are read on first completion in
+a buffer, so a new snippet needs a restart or a new buffer to appear.
+
+LSP snippets work too — completing a Go function expands its signature with tab
+stops, because blink publishes snippet capability to every server.
 
 ## Managing plugins
 

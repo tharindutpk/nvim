@@ -1,0 +1,12 @@
+{
+  "Today's date": {
+    "prefix": "today",
+    "body": "$CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE",
+    "description": "Insert today's date as YYYY-MM-DD"
+  },
+  "TODO comment": {
+    "prefix": "todo",
+    "body": "TODO($CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE): $0",
+    "description": "Dated TODO marker"
+  }
+}

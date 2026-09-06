@@ -7,8 +7,21 @@ local lazy = require("util.lazy")
 local setup = lazy.once(function()
   local lint = require("lint")
 
+  -- biome is the JS/TS linter here; prettierd still owns formatting, so biome
+  -- never needs a biome.json to be useful -- with no config it lints against
+  -- its recommended rules.
+  local biome = { "biomejs" }
+
   lint.linters_by_ft = {
+    bash = { "shellcheck" },
+    javascript = biome,
+    javascriptreact = biome,
+    json = biome,
     markdown = { "markdownlint" },
+    sh = { "shellcheck" },
+    svelte = biome,
+    typescript = biome,
+    typescriptreact = biome,
   }
 
   return lint

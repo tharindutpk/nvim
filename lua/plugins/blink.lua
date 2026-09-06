@@ -2,6 +2,7 @@ vim.pack.add({
   -- Track the latest 1.x release rather than pinning a single tag, so patch
   -- fixes arrive with `vim.pack.update()` but a 2.0 cannot land unannounced.
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("1") },
+  { src = "https://github.com/rafamadriz/friendly-snippets" },
 })
 
 -- Deferred, but still before anything calls vim.lsp.enable() -- see the ordering
@@ -23,6 +24,10 @@ require("util.lazy").later(function()
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
     },
+    -- The snippets source needs no options: it picks up friendly-snippets off
+    -- the runtimepath on its own, and already scans <config>/snippets for
+    -- personal ones. See the README for the file format.
+    snippets = { preset = "default" },
     fuzzy = { implementation = "prefer_rust_with_warning" },
     signature = { enabled = true },
   })

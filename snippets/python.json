@@ -1,0 +1,17 @@
+{
+  "Main guard": {
+    "prefix": "main",
+    "body": ["def main() -> None:", "\t$0", "", "", "if __name__ == \"__main__\":", "\tmain()"],
+    "description": "Entry point with a main guard"
+  },
+  "Dataclass": {
+    "prefix": "dc",
+    "body": ["@dataclass(frozen=True, slots=True)", "class ${1:Name}:", "\t${2:field}: ${3:str}", "$0"],
+    "description": "Frozen dataclass with slots"
+  },
+  "Polars scan": {
+    "prefix": "pls",
+    "body": ["${1:df} = (", "\tpl.scan_parquet(\"${2:path}\")", "\t.filter($3)", "\t.collect()", ")", "$0"],
+    "description": "Lazy polars scan into a collected frame"
+  }
+}

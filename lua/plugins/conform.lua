@@ -15,7 +15,11 @@ local setup = lazy.once(function()
 
       return { timeout_ms = 500, lsp_format = "fallback" }
     end,
+    -- prettierd formats everything web-shaped, including .svelte, so that
+    -- markup and script stay in one style. biome is used for linting only --
+    -- see lua/plugins/lint.lua.
     formatters_by_ft = {
+      bash = { "shfmt" },
       c = { "clang_format" },
       cpp = { "clang_format" },
       css = { "prettierd" },
@@ -28,7 +32,10 @@ local setup = lazy.once(function()
       lua = { "stylua" },
       markdown = { "prettierd" },
       python = { "ruff_organize_imports", "ruff_format" },
+      scss = { "prettierd" },
       sh = { "shfmt" },
+      sql = { "sql_formatter" },
+      svelte = { "prettierd" },
       typescript = { "prettierd" },
       typescriptreact = { "prettierd" },
       yaml = { "prettierd" },

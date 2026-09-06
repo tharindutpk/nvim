@@ -9,10 +9,12 @@ vim.pack.add({
 -- this list in sync with those three.
 local ensure_installed = {
   -- language servers
+  "bash-language-server",
   "clangd",
   "gopls",
   "lua-language-server",
   "ruff",
+  "svelte-language-server",
   "ty",
   "typescript-language-server",
 
@@ -22,10 +24,13 @@ local ensure_installed = {
   "goimports",
   "prettierd",
   "shfmt",
+  "sql-formatter",
   "stylua",
 
   -- linters
+  "biome",
   "markdownlint",
+  "shellcheck",
 
   -- nvim-treesitter's main branch shells out to the tree-sitter CLI to build
   -- parsers, so it has to be on PATH; mason prepends its bin directory.

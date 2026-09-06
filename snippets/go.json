@@ -1,0 +1,32 @@
+{
+  "Error check": {
+    "prefix": "iferr",
+    "body": ["if err != nil {", "\treturn ${1:err}", "}", "$0"],
+    "description": "Return on error"
+  },
+  "Wrapped error check": {
+    "prefix": "iferrw",
+    "body": ["if err != nil {", "\treturn fmt.Errorf(\"${1:context}: %w\", err)", "}", "$0"],
+    "description": "Return a wrapped error"
+  },
+  "Table test": {
+    "prefix": "tt",
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\ttests := []struct {",
+      "\t\tname string",
+      "\t\t$2",
+      "\t}{",
+      "\t\t{name: \"$3\"},",
+      "\t}",
+      "",
+      "\tfor _, tt := range tests {",
+      "\t\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t\t$0",
+      "\t\t})",
+      "\t}",
+      "}"
+    ],
+    "description": "Table-driven test"
+  }
+}

@@ -8,10 +8,12 @@ local lazy = require("util.lazy")
 local pick = require("plugins.fzf").pick
 
 local servers = {
+  "bashls",
   "clangd",
   "gopls",
   "lua_ls",
   "ruff",
+  "svelte",
   "ty",
 }
 
