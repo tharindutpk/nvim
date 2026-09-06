@@ -1,42 +1,46 @@
--- options
--- :help vim.opt
-
-local opt = vim.opt
+-- Editor options. `:help option-list`
+--
+-- `vim.o` is the whole story since Nvim 0.11: it accepts the same values the
+-- option takes in `:set`, including list- and map-style options, so there is no
+-- reason to mix in `vim.opt` any more.
 local o = vim.o
 
 -- ui
-opt.number = true -- line numbers
-opt.relativenumber = true -- relative numbers
-opt.cursorline = true -- highlight current line
-opt.scrolloff = 10 -- keep context while scrolling
-opt.signcolumn = "yes" -- always show signs
-opt.showmode = false -- hide mode (statusline handles it)
-o.winborder = "solid"
+o.number = true -- line numbers
+o.relativenumber = true -- relative numbers
+o.cursorline = true -- highlight current line
+o.scrolloff = 10 -- keep context while scrolling
+o.signcolumn = "yes" -- always show signs, so text never shifts
+o.showmode = false -- lualine already shows the mode
+o.winborder = "solid" -- border for floats (hover, diagnostics, pickers)
 
 -- input
-opt.mouse = "a" -- enable mouse
+o.mouse = "a" -- enable mouse
+
+-- Resolving the clipboard provider shells out, which is measurable at startup.
+-- Deferring it costs nothing: no yank can happen before the first screen draw.
 vim.schedule(function()
-  opt.clipboard = "unnamedplus" -- sync system clipboard
+  o.clipboard = "unnamedplus" -- sync system clipboard
 end)
 
 -- editing
 o.shiftwidth = 2 -- indent width
 o.tabstop = 2 -- tab width
-opt.breakindent = true -- indent wrapped lines
-opt.undofile = true -- persistent undo
+o.breakindent = true -- keep indent on wrapped lines
+o.undofile = true -- persistent undo
 
 -- search
-opt.ignorecase = true -- case-insensitive search
-opt.smartcase = true -- uppercase overrides ignorecase
+o.ignorecase = true -- case-insensitive search
+o.smartcase = true -- unless the pattern has uppercase
 
 -- windows
-opt.splitright = true -- vertical splits to the right
-opt.splitbelow = true -- horizontal splits below
+o.splitright = true -- vertical splits open to the right
+o.splitbelow = true -- horizontal splits open below
 
--- behavior
-opt.list = false -- hide whitespace
-opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" } -- whitespace symbols
-opt.updatetime = 250 -- faster updates
-opt.timeoutlen = 300 -- faster mappings
-opt.inccommand = "split" -- live substitution preview
-opt.confirm = true -- confirm on unsaved quit
+-- behaviour
+o.list = false -- hide whitespace by default (toggled by <leader>tl)
+o.listchars = "tab:» ,trail:·,nbsp:␣" -- how whitespace renders when shown
+o.updatetime = 250 -- faster CursorHold (document highlight, diagnostics)
+o.timeoutlen = 300 -- faster which-key / mapping timeout
+o.inccommand = "split" -- live preview of :substitute
+o.confirm = true -- prompt instead of failing on unsaved quit

@@ -2,22 +2,32 @@ vim.pack.add({
   { src = "https://github.com/mfussenegger/nvim-lint" },
 })
 
-local lint = require("lint")
-lint.linters_by_ft = {
-  markdown = { "markdownlint" },
-}
+local lazy = require("util.lazy")
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-  group = vim.api.nvim_create_augroup("lint", { clear = true }),
-  callback = function()
-    if vim.opt_local.modifiable:get() then
-      lint.try_lint()
-    end
-  end,
-})
+local setup = lazy.once(function()
+  local lint = require("lint")
 
-vim.keymap.set("n", "<leader>l", function()
-  if vim.opt_local.modifiable:get() then
-    lint.try_lint()
+  lint.linters_by_ft = {
+    markdown = { "markdownlint" },
+  }
+
+  return lint
+end)
+
+local function try_lint()
+  if vim.bo.modifiable and vim.bo.buftype == "" then
+    setup().try_lint()
   end
-end, { desc = "Trigger linting for current file" })
+end
+
+lazy.later(function()
+  vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
+    group = vim.api.nvim_create_augroup("tharindutpk_lint", { clear = true }),
+    desc = "Run linters for the current file",
+    callback = try_lint,
+  })
+
+  try_lint()
+end)
+
+vim.keymap.set("n", "<leader>l", try_lint, { desc = "Lint current file" })

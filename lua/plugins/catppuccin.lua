@@ -3,15 +3,17 @@ vim.pack.add({
 })
 
 require("catppuccin").setup({
-  favour = "mocha",
+  flavour = "mocha",
   no_italic = true,
+  -- `default_integrations` already covers blink_cmp, blink_indent, fzf,
+  -- gitsigns, nvimtree and treesitter_context; only the ones that ship
+  -- disabled need listing here.
   integrations = {
-    blink_cmp = true,
     fidget = true,
-    fzf = true,
     mason = true,
-    lsp_trouble = true,
+    nvim_surround = true,
     snacks = true,
+    which_key = true,
   },
   compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
 })

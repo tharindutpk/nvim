@@ -1,3 +1,8 @@
-vim.pack.add({ "https://github.com/windwp/nvim-autopairs" })
+vim.pack.add({
+  { src = "https://github.com/windwp/nvim-autopairs" },
+})
 
-require("nvim-autopairs").setup({})
+-- Nothing to pair until insert mode is entered.
+require("util.lazy").on("InsertEnter", function()
+  require("nvim-autopairs").setup({})
+end)

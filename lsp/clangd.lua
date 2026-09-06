@@ -2,5 +2,12 @@
 return {
   cmd = { "clangd" },
   filetypes = { "c", "cpp" },
-  rootPatterns = { ".git", "build" },
+  root_markers = {
+    "compile_commands.json",
+    "compile_flags.txt",
+    ".clangd",
+    "Makefile",
+    "CMakeLists.txt",
+    ".git",
+  },
 }

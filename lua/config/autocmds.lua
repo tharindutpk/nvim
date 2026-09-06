@@ -1,6 +1,7 @@
--- autocmds
--- :help lua-guide-autocommands
+-- Autocommands. `:help lua-guide-autocommands`
 
+---@param name string
+---@return integer
 local function augroup(name)
   return vim.api.nvim_create_augroup("tharindutpk_" .. name, { clear = true })
 end
@@ -29,14 +30,28 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  desc = "Reload buffers changed outside Nvim",
+  callback = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
 -- quit
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
+  desc = "Close throwaway buffers with q",
   pattern = {
     "checkhealth",
     "gitsigns-blame",
     "help",
+    "man",
     "nvim-pack",
+    "qf",
+    "query",
     "startuptime",
   },
   callback = function(event)
