@@ -65,4 +65,21 @@ function M.once(fn)
   end
 end
 
+--- Top-level Lua module names that were required while `init.lua` ran, i.e.
+--- the plugins this config genuinely loaded during startup.
+---
+--- Snapshotted at the end of `init.lua`, which is deliberately *before* Nvim
+--- sources every plugin's `plugin/` directory: those files run for every
+--- managed plugin no matter how lazy it is, so counting them would make almost
+--- everything look loaded.
+---@type table<string, true>
+M.startup_modules = {}
+
+--- Called once, from the last line of `init.lua`.
+function M.snapshot()
+  for module in pairs(package.loaded) do
+    M.startup_modules[module:match("^[^.]+")] = true
+  end
+end
+
 return M

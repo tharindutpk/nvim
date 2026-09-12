@@ -119,6 +119,63 @@ lsp-defaults`), pointed at fzf-lua pickers: `grd` definition, `grt` type
 definition, `grr` references, `gri` implementation, `grD` declaration, `grn`
 rename, `gra` code action, `gO` document symbols, `gW` workspace symbols.
 
+## Dashboard
+
+The footer reads `⚡ 5/31 plugins loaded in 29ms`. snacks ships a `startup`
+section for this, but it reads `lazy.stats`, so `lua/plugins/snacks.lua` counts
+vim.pack's plugins itself and measures from `vim.g.start_time`, stamped on the
+first line of `init.lua`.
+
+**31** is every plugin vim.pack added to the session -- `vim.pack.add()` runs
+eagerly for all of them, since it only extends `'runtimepath'`. **5** is how
+many this config actually required while `init.lua` ran: catppuccin,
+nvim-treesitter, treesitter-modules, snacks and oil. Everything else waits on a
+`later()`, a keymap, an `InsertEnter` or a filetype.
+
+The measurement point matters. `util.lazy.snapshot()` records
+`package.loaded` at the end of `init.lua`, *before* Nvim sources every plugin's
+`plugin/` directory. Those files run for every managed plugin however lazy it
+is, and most of them `require` their own module, so counting after that point
+reports around 16 -- a number that says almost nothing. All 35 of them together
+cost about 2ms.
+
+Two things to know if you touch it: the figure excludes the few milliseconds
+Nvim spends before it reads `init.lua`, so it reads slightly lower than
+`nvim --startuptime`; and `vim.pack.get()` must be called with
+`{ info = false }`, because the default runs git once per plugin and takes
+around 100ms.
+
+## Running things in tmux
+
+`lua/config/tmux.lua` runs project commands in tmux rather than in an Nvim
+terminal, so output lives in a window that persists and does not fight the
+editor for space. Two destinations, picked by what the command is:
+
+* **popup** — `tmux display-popup -EE`, floating over the editor. It closes
+  itself when the command succeeds and stays open when it fails, so a passing
+  test is a flash and a failing one leaves its output on screen. Tests, builds,
+  linters.
+* **run window** — the persistent `run`/`dev`/`repl` window that
+  tmux-sessionizer opens beside the editor, created on demand if it is missing.
+  Servers and watchers.
+
+| mapping | does |
+| --- | --- |
+| `<leader>rt` | test the function under the cursor, in a popup |
+| `<leader>rf` | test the current file |
+| `<leader>ra` | test everything |
+| `<leader>rc` | lint / vet / clippy |
+| `<leader>rr` | run the project in the side window |
+| `<leader>rl` | repeat the last one, from any buffer |
+
+The command depends on the filetype: `go test -run '^Name$' ./pkg`,
+`cargo test name -- --nocapture`, `uv run pytest file::Class::test`,
+`pnpm test -t 'name'`. The enclosing function is found with treesitter, falling
+back to a line scan when the language has no parser installed yet.
+
+Outside tmux the same mappings open a terminal split instead, so nothing breaks
+when Nvim is started on its own.
+
 ## Reviewing changes
 
 gitsigns handles the hunk in front of you; diffview handles the changeset.
