@@ -63,7 +63,13 @@ the first buffer read, the dashboard must precede `VimEnter`), and **oil**
 | tree | nvim-tree (`<leader>e`), oil (`-`) |
 
 Language servers are declared one per file in `lsp/` and switched on by the
-`servers` list in `lua/config/lsp.lua`. TypeScript is handled by
+`servers` list in `lua/config/lsp.lua`.
+
+`:LspRestart [name]`, `:LspStop [name]`, `:LspLog` and `:LspInfo` are defined
+there too. They normally come from nvim-lspconfig, which this config does not
+use, so without them a wedged server would mean quitting Nvim. `:LspRestart`
+toggles `vim.lsp.enable()`, which stops the client and reattaches it to every
+open buffer. TypeScript is handled by
 typescript-tools, Rust by rustaceanvim; neither goes through that list.
 
 ### Per language
@@ -218,6 +224,11 @@ Two sources feed it, both picked up automatically:
 
 `$1`, `$2`, … are tab stops, `$0` is where the cursor ends up, `${1:default}`
 gives a placeholder, and `$CURRENT_YEAR` and friends are filled in on expand.
+`$CLIPBOARD` inserts the system clipboard -- the snippets source is pinned to
+register `+` in `lua/plugins/blink.lua` so it does not follow whichever
+register was last used. `snippets/markdown.json` uses it for `lc` (link), `ic`
+(image) and `lr` (reference link): copy a URL in the browser, type the prefix,
+and only the link text is left to fill in.
 `<Tab>` and `<S-Tab>` move between stops. Files are read on first completion in
 a buffer, so a new snippet needs a restart or a new buffer to appear.
 

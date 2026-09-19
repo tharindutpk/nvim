@@ -1,0 +1,7 @@
+{
+  "Link with the clipboard as the URL": {
+    "prefix": "lc",
+    "body": "[${1:text}]($CLIPBOARD)$0",
+    "description": "Markdown link, URL taken from the system clipboard"
+  }
+}

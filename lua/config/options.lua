@@ -26,6 +26,10 @@ end)
 -- editing
 o.shiftwidth = 2 -- indent width
 o.tabstop = 2 -- tab width
+o.expandtab = true -- spaces, not tabs
+
+-- Nvim's own ftplugins force `noexpandtab` back for go, gomod and make, so the
+-- line above does not put spaces where a tab is required.
 o.breakindent = true -- keep indent on wrapped lines
 o.undofile = true -- persistent undo
 

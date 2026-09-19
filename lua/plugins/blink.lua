@@ -23,10 +23,18 @@ require("util.lazy").later(function()
     },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
+      providers = {
+        snippets = {
+          -- `$CLIPBOARD` in a snippet body otherwise resolves through
+          -- `vim.v.register`, which is whatever register was last used. Pin it
+          -- to the system clipboard so the markdown link snippets are
+          -- predictable.
+          opts = { clipboard_register = "+" },
+        },
+      },
     },
-    -- The snippets source needs no options: it picks up friendly-snippets off
-    -- the runtimepath on its own, and already scans <config>/snippets for
-    -- personal ones. See the README for the file format.
+    -- The snippets source finds friendly-snippets on the runtimepath by itself
+    -- and already scans <config>/snippets for personal ones. See the README.
     snippets = { preset = "default" },
     fuzzy = { implementation = "prefer_rust_with_warning" },
     signature = { enabled = true },

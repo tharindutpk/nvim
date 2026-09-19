@@ -107,6 +107,82 @@ vim.api.nvim_create_autocmd("LspDetach", {
   end,
 })
 
+-- Commands. `:LspRestart` and friends normally come from nvim-lspconfig, which
+-- this config does not use, so a wedged server would otherwise mean quitting
+-- Nvim.
+
+--- Names of the servers attached to the current buffer.
+---@return string[]
+local function attached()
+  return vim.tbl_map(function(client)
+    return client.name
+  end, vim.lsp.get_clients({ bufnr = 0 }))
+end
+
+---@param names string[]
+local function restart(names)
+  for _, name in ipairs(names) do
+    if vim.lsp.is_enabled(name) then
+      -- Toggling through vim.lsp.enable() stops the client and re-runs
+      -- FileType for every open buffer, which reattaches it.
+      vim.lsp.enable(name, false)
+
+      vim.schedule(function()
+        vim.lsp.enable(name, true)
+        vim.notify("Restarted " .. name, vim.log.levels.INFO)
+      end)
+    else
+      -- Servers started by a plugin rather than by us (rustaceanvim) are not
+      -- registered with vim.lsp.enable, so stop them and reload the buffer.
+      for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
+        client:stop(true)
+      end
+
+      vim.defer_fn(function()
+        vim.cmd("edit")
+        vim.notify("Restarted " .. name, vim.log.levels.INFO)
+      end, 200)
+    end
+  end
+end
+
+vim.api.nvim_create_user_command("LspRestart", function(opts)
+  local names = #opts.fargs > 0 and opts.fargs or attached()
+
+  if #names == 0 then
+    vim.notify("No language server attached to this buffer", vim.log.levels.WARN)
+    return
+  end
+
+  restart(names)
+end, {
+  desc = "Restart the buffer's language servers, or the ones named",
+  nargs = "*",
+  complete = function()
+    return vim.tbl_keys(vim.lsp._enabled_configs or {})
+  end,
+})
+
+vim.api.nvim_create_user_command("LspStop", function(opts)
+  local names = #opts.fargs > 0 and opts.fargs or attached()
+
+  for _, name in ipairs(names) do
+    for _, client in ipairs(vim.lsp.get_clients({ name = name })) do
+      client:stop(true)
+    end
+  end
+end, { desc = "Stop the buffer's language servers", nargs = "*" })
+
+vim.api.nvim_create_user_command("LspLog", function()
+  vim.cmd("tabnew " .. vim.fn.fnameescape(vim.lsp.log.get_filename()))
+  vim.cmd("normal! G")
+end, { desc = "Open the LSP log" })
+
+vim.api.nvim_create_user_command("LspInfo", function()
+  -- Nvim's own health report is more thorough than anything worth hand-rolling.
+  vim.cmd("checkhealth vim.lsp")
+end, { desc = "Report on language server status" })
+
 -- Deferred so that blink.cmp -- which is itself deferred and publishes the
 -- completion capabilities in lua/plugins/blink.lua -- has run first.
 -- `vim.lsp.enable()` re-runs FileType for buffers that are already open, so
